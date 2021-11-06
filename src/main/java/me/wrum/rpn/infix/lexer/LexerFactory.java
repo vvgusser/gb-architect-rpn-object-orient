@@ -12,11 +12,22 @@ import me.wrum.rpn.infix.rules.OpenBracesRule;
 import me.wrum.rpn.infix.rules.OperatorPositionRule;
 import me.wrum.rpn.infix.rules.ValidCloseBraceTokensRule;
 
+/**
+ * Factory for creating configured instances of lexers
+ *
+ * @author Vyacheslav Gusser proweber1@mail.ru
+ */
 public final class LexerFactory {
   private LexerFactory() {
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Creates a lexer object ready for tokenization of infix
+   * expressions and their validation
+   *
+   * @return configured lexer instance
+   */
   public static Lexer initLexer() {
     var opSupp = OperatorsSupportFactory.instantiate();
 
