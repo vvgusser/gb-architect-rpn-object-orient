@@ -7,7 +7,6 @@ package me.wrum.rpn.api.exception;
  * a positional parameter, then the final message will be without
  * specifying the location of the error.
  * <p>
- * <p>
  * Example with binding position in source expression
  * <pre>
  * >>> 2 * ()
