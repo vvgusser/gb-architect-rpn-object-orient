@@ -4,7 +4,7 @@ import me.wrum.rpn.api.evaluator.EvaluationResult;
 import me.wrum.rpn.api.evaluator.Evaluator;
 import me.wrum.rpn.api.lexer.Lexer;
 import me.wrum.rpn.api.lexer.Token;
-import me.wrum.rpn.infix.operator.OperatorsSupport;
+import me.wrum.rpn.infix.operator.support.OperatorsSupport;
 import me.wrum.rpn.infix.utils.Tokens;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package me.wrum.rpn.infix.lexer;
 
 import me.wrum.rpn.api.lexer.Lexer;
-import me.wrum.rpn.infix.operator.OperatorsSupportFactory;
+import me.wrum.rpn.infix.operator.support.OperatorsSupportFactory;
 import me.wrum.rpn.infix.rules.BracesCountRule;
 import me.wrum.rpn.infix.rules.CompositeRule;
 import me.wrum.rpn.infix.rules.ConsecutiveNumbersRule;

@@ -2,7 +2,7 @@ package me.wrum.rpn.infix.evaluator;
 
 import me.wrum.rpn.api.evaluator.Evaluator;
 import me.wrum.rpn.infix.lexer.LexerFactory;
-import me.wrum.rpn.infix.operator.OperatorsSupportFactory;
+import me.wrum.rpn.infix.operator.support.OperatorsSupportFactory;
 
 /**
  * Factory for creating instances of evaluators

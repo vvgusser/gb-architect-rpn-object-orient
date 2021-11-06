@@ -1,9 +1,9 @@
 package me.wrum.rpn.infix.rules;
 
-import me.wrum.rpn.api.lexer.TokensRule;
 import me.wrum.rpn.api.exception.TokenRuleException;
 import me.wrum.rpn.api.lexer.Token;
-import me.wrum.rpn.infix.operator.OperatorsSupport;
+import me.wrum.rpn.api.lexer.TokensRule;
+import me.wrum.rpn.infix.operator.support.OperatorsSupport;
 
 import java.util.List;
 import java.util.Objects;

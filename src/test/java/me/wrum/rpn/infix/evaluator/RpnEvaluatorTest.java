@@ -3,7 +3,7 @@ package me.wrum.rpn.infix.evaluator;
 import me.wrum.rpn.api.evaluator.Evaluator;
 import me.wrum.rpn.api.exception.ApplicationException;
 import me.wrum.rpn.infix.lexer.LexerFactory;
-import me.wrum.rpn.infix.operator.OperatorsSupportFactory;
+import me.wrum.rpn.infix.operator.support.OperatorsSupportFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

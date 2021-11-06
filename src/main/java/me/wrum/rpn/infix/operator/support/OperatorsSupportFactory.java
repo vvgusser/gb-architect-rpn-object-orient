@@ -1,4 +1,9 @@
-package me.wrum.rpn.infix.operator;
+package me.wrum.rpn.infix.operator.support;
+
+import me.wrum.rpn.infix.operator.Divide;
+import me.wrum.rpn.infix.operator.Minus;
+import me.wrum.rpn.infix.operator.Multiply;
+import me.wrum.rpn.infix.operator.Plus;
 
 import java.util.List;
 

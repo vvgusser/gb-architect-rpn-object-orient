@@ -1,4 +1,4 @@
-package me.wrum.rpn.infix.operator;
+package me.wrum.rpn.infix.operator.support;
 
 import me.wrum.rpn.api.operator.Operator;
 import me.wrum.rpn.infix.utils.Strings;

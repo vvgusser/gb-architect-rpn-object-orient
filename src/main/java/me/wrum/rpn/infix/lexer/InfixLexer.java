@@ -1,12 +1,12 @@
 package me.wrum.rpn.infix.lexer;
 
-import me.wrum.rpn.api.lexer.TokensRule;
 import me.wrum.rpn.api.exception.EmptyExpressionException;
 import me.wrum.rpn.api.exception.TokenRuleException;
 import me.wrum.rpn.api.lexer.Lexer;
 import me.wrum.rpn.api.lexer.Token;
+import me.wrum.rpn.api.lexer.TokensRule;
 import me.wrum.rpn.api.lexer.Type;
-import me.wrum.rpn.infix.operator.OperatorsSupport;
+import me.wrum.rpn.infix.operator.support.OperatorsSupport;
 import me.wrum.rpn.infix.utils.Strings;
 
 import java.util.ArrayList;
