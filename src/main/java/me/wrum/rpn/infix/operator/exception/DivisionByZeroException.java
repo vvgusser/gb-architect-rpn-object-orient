@@ -1,4 +1,4 @@
-package me.wrum.rpn.infix.operator;
+package me.wrum.rpn.infix.operator.exception;
 
 import me.wrum.rpn.api.exception.ApplicationException;
 

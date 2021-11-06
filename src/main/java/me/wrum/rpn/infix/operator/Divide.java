@@ -1,5 +1,7 @@
 package me.wrum.rpn.infix.operator;
 
+import me.wrum.rpn.infix.operator.exception.DivisionByZeroException;
+
 /**
  * Division operator for two operands. It is NOT a unary operator,
  * it can take at least two operands.
