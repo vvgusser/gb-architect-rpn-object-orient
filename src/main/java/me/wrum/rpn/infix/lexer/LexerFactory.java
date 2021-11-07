@@ -35,10 +35,10 @@ public final class LexerFactory {
         new BracesCountRule(),
         new LegalFirstTokenRule(opSupp),
         new LegalLastTokenRule(),
+        new OpenBracesRule(),
         new ValidCloseBraceTokensRule(),
         new ConsecutiveNumbersRule(),
         new LegalNumbersRule(),
-        new OpenBracesRule(),
         new OperatorPositionRule(opSupp)
     );
 
