@@ -68,13 +68,10 @@ public final class RpnEvaluator implements Evaluator {
         case OPEN_BRACE -> stack.push(token);
         // Poll all tokens from stack until look open brace
         case CLOSE_BRACE -> {
-          while (!stack.isEmpty()) {
-            var el = stack.pop();
-
-            if (el.is(OPEN_BRACE)) break;
-
-            result.add(el);
+          while (!stack.isEmpty() && !stack.getFirst().is(OPEN_BRACE)) {
+            result.add(stack.pop());
           }
+          stack.pop();
         }
         // If current token is operator, look stack and pop
         // operators with precedence higher than of current
