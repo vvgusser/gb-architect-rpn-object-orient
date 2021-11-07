@@ -31,10 +31,10 @@ public final class OperatorPositionRule implements TokensRule {
 
       if (token.is(OPERATOR) && prev.is(OPERATOR)) {
         if (!operators.isUnaryOperator(token.value())) {
-          ctx.invalid("After '" + prev.value() + "' can follow only unary operator, open brace or number", i - 1);
+          ctx.invalid("After '" + prev.value() + "' can follow only unary operator, open brace or number", prev.pos());
         }
         if (next.is(OPERATOR)) {
-          ctx.invalid("Three or more consecutive statements", i);
+          ctx.invalid("Three or more consecutive statements", token.pos());
         }
       } // end check
     }
