@@ -4,6 +4,7 @@ import me.wrum.rpn.api.evaluator.Evaluator;
 import me.wrum.rpn.api.exception.ApplicationException;
 import me.wrum.rpn.infix.evaluator.EvaluatorFactory;
 
+import java.io.Console;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
@@ -29,11 +30,7 @@ final class Main {
   }
 
   void run() {
-    var console = System.console();
-
-    if (null == console) {
-      throw new RuntimeException("system console not available");
-    }
+    var console = getConsole();
 
     printHi();
 
@@ -53,6 +50,21 @@ final class Main {
         console.printf("%s%n", e.getMessage());
       } // end catch block
     }
+  }
+
+  /**
+   * This return system console and throw exception if console isn't available
+   *
+   * @return console instance
+   */
+  private Console getConsole() {
+    var result = System.console();
+
+    if (null == result) {
+      throw new RuntimeException("System console not available");
+    }
+
+    return result;
   }
 
   private void printHi() {
