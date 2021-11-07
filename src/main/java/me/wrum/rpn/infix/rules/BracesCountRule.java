@@ -1,10 +1,7 @@
 package me.wrum.rpn.infix.rules;
 
 import me.wrum.rpn.api.lexer.TokensRule;
-import me.wrum.rpn.api.exception.TokenRuleException;
-import me.wrum.rpn.api.lexer.Token;
-
-import java.util.List;
+import me.wrum.rpn.api.lexer.ValidationContext;
 
 import static me.wrum.rpn.api.lexer.Type.CLOSE_BRACE;
 import static me.wrum.rpn.api.lexer.Type.OPEN_BRACE;
@@ -28,11 +25,11 @@ public final class BracesCountRule implements TokensRule {
   // algorithm and search in pairs
 
   @Override
-  public void assertTokens(String expr, List<Token> tokens) {
+  public void assertTokens(ValidationContext ctx) {
     var open = 0;
     var close = 0;
 
-    for (var token : tokens) {
+    for (var token : ctx.tokens()) {
       if (token.is(OPEN_BRACE)) {
         open++;
       }
@@ -43,8 +40,7 @@ public final class BracesCountRule implements TokensRule {
     }
 
     if (open != close) {
-      throw new TokenRuleException(expr, "The number of opening brackets does "
-          + "not match the number of closing brackets [" + open + ":" + close + "]");
+      ctx.invalid("The number of opening brackets does not match the number of closing brackets [" + open + ":" + close + "]");
     }
   }
 }

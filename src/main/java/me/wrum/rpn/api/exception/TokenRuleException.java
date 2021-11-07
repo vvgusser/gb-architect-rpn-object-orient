@@ -23,7 +23,7 @@ package me.wrum.rpn.api.exception;
  *
  * @author Vyacheslav Gusser proweber1@mail.ru
  */
-public final class TokenRuleException extends ApplicationException {
+public class TokenRuleException extends ApplicationException {
   private final String expr;
   private final String message;
   private final int position;
@@ -39,7 +39,7 @@ public final class TokenRuleException extends ApplicationException {
   }
 
   @Override
-  public String getMessage() {
+  public final String getMessage() {
     return buildPositionedString() + "error: " + message;
   }
 

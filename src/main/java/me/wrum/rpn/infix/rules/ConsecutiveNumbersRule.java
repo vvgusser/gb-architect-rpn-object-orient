@@ -1,10 +1,7 @@
 package me.wrum.rpn.infix.rules;
 
-import me.wrum.rpn.api.exception.TokenRuleException;
-import me.wrum.rpn.api.lexer.Token;
 import me.wrum.rpn.api.lexer.TokensRule;
-
-import java.util.List;
+import me.wrum.rpn.api.lexer.ValidationContext;
 
 import static me.wrum.rpn.api.lexer.Type.NUMBER;
 
@@ -17,15 +14,16 @@ import static me.wrum.rpn.api.lexer.Type.NUMBER;
  */
 public class ConsecutiveNumbersRule implements TokensRule {
   @Override
-  public void assertTokens(String expr, List<Token> tokens) {
-    var N = tokens.size();
+  public void assertTokens(ValidationContext ctx) {
+    var tokens = ctx.tokens();
+    var N = ctx.numberOfTokens();
 
     for (int i = 1; i < N; i++) {
       var curr = tokens.get(i);
       var prev = tokens.get(i - 1);
 
       if (curr.is(NUMBER) && prev.is(NUMBER)) {
-        throw new TokenRuleException(expr, "Numbers cannot be separated by spaces", curr.pos());
+        ctx.invalid("Numbers cannot be separated by spaces", curr.pos());
       }
     } // end for loop
   }

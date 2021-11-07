@@ -1,9 +1,7 @@
 package me.wrum.rpn.infix.rules;
 
 import me.wrum.rpn.api.lexer.TokensRule;
-import me.wrum.rpn.api.lexer.Token;
-
-import java.util.List;
+import me.wrum.rpn.api.lexer.ValidationContext;
 
 /**
  * This is a service rule that in itself can aggregate many
@@ -35,9 +33,9 @@ public final class CompositeRule implements TokensRule {
   }
 
   @Override
-  public void assertTokens(String originalExpr, List<Token> tokens) {
+  public void assertTokens(ValidationContext ctx) {
     for (var rule : rules) {
-      rule.assertTokens(originalExpr, tokens);
+      rule.assertTokens(ctx);
     }
   }
 }

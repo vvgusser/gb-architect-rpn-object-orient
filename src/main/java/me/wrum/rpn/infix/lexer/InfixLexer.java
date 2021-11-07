@@ -6,6 +6,7 @@ import me.wrum.rpn.api.lexer.Lexer;
 import me.wrum.rpn.api.lexer.Token;
 import me.wrum.rpn.api.lexer.TokensRule;
 import me.wrum.rpn.api.lexer.Type;
+import me.wrum.rpn.api.lexer.ValidationContext;
 import me.wrum.rpn.infix.operator.support.OperatorsSupport;
 import me.wrum.rpn.infix.utils.Strings;
 
@@ -71,9 +72,7 @@ public final class InfixLexer implements Lexer {
 
     var tokens = tokenizeImpl(expr);
 
-    if (rule != null) {
-      rule.assertTokens(expr, tokens);
-    }
+    validateTokens(expr, tokens);
 
     return tokensMerger.merge(tokens);
   }
@@ -184,5 +183,17 @@ public final class InfixLexer implements Lexer {
     }
 
     return null;
+  }
+
+  /**
+   * Run tokens validator if rule is not null
+   *
+   * @param expr   original expression
+   * @param tokens collection of tokens for validate
+   */
+  private void validateTokens(String expr, List<Token> tokens) {
+    if (null != rule) {
+      rule.assertTokens(new ValidationContext(expr, tokens));
+    }
   }
 }

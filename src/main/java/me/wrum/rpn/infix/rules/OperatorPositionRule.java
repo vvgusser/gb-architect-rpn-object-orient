@@ -1,11 +1,8 @@
 package me.wrum.rpn.infix.rules;
 
-import me.wrum.rpn.api.exception.TokenRuleException;
-import me.wrum.rpn.api.lexer.Token;
 import me.wrum.rpn.api.lexer.TokensRule;
+import me.wrum.rpn.api.lexer.ValidationContext;
 import me.wrum.rpn.infix.operator.support.OperatorsSupport;
-
-import java.util.List;
 
 import static me.wrum.rpn.api.lexer.Type.OPERATOR;
 
@@ -24,7 +21,9 @@ public final class OperatorPositionRule implements TokensRule {
   }
 
   @Override
-  public void assertTokens(String expr, List<Token> tokens) {
+  public void assertTokens(ValidationContext ctx) {
+    var tokens = ctx.tokens();
+
     for (int i = 1; i < tokens.size() - 1; i++) {
       var token = tokens.get(i);
       var prev = tokens.get(i - 1);
@@ -32,10 +31,10 @@ public final class OperatorPositionRule implements TokensRule {
 
       if (token.is(OPERATOR) && prev.is(OPERATOR)) {
         if (!operators.isUnaryOperator(token.value())) {
-          throw new TokenRuleException(expr, "After '" + prev.value() + "' can follow only unary operator, open brace or number", i - 1);
+          ctx.invalid("After '" + prev.value() + "' can follow only unary operator, open brace or number", i - 1);
         }
         if (next.is(OPERATOR)) {
-          throw new TokenRuleException(expr, "Three or more consecutive statements", i);
+          ctx.invalid("Three or more consecutive statements", i);
         }
       } // end check
     }

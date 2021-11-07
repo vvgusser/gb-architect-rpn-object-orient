@@ -1,11 +1,9 @@
 package me.wrum.rpn.infix.rules;
 
-import me.wrum.rpn.api.lexer.TokensRule;
-import me.wrum.rpn.api.exception.TokenRuleException;
 import me.wrum.rpn.api.lexer.Token;
+import me.wrum.rpn.api.lexer.TokensRule;
 import me.wrum.rpn.api.lexer.Type;
-
-import java.util.List;
+import me.wrum.rpn.api.lexer.ValidationContext;
 
 /**
  * The rule checks that the expression contains well-formed numbers.
@@ -38,16 +36,16 @@ public final class LegalNumbersRule implements TokensRule {
   private static final String VALID_NUMBER_REGEX = "[0-9]+(.[0-9]+)?";
 
   @Override
-  public void assertTokens(String expr, List<Token> tokens) {
-    var numberTokensStream = tokens.stream().filter(this::isNumberToken);
+  public void assertTokens(ValidationContext ctx) {
+    var numberTokensStream = ctx.tokens().stream().filter(this::isNumberToken);
 
     numberTokensStream.forEach(el -> {
       var value = el.value();
       var pos = el.pos();
 
       if (!value.matches(VALID_NUMBER_REGEX)) {
-        throw new TokenRuleException(expr, "Invalid number, only integers and fractional "
-            + "numbers are allowed, there must be numbers after the period in the fractional", pos);
+        ctx.invalid("Invalid number, only integers and fractional numbers are allowed, there must be numbers after the period in the fractional",
+            pos);
       }
     });
   }
