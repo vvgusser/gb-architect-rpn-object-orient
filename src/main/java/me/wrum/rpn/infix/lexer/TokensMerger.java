@@ -25,28 +25,8 @@ final class TokensMerger {
     while (i < N) {
       var curr = tokens.get(i);
 
-      boolean isNotLastToken = i < N - 1;
-      boolean isCurrOperator = curr.is(OPERATOR);
-      boolean isFirstToken = i == 0;
-
-      // If is not last token and next token is number and prev token is operator
-      // (if current not first) then merge next and current token and increment
-      // pointer
-      if (isNotLastToken && isCurrOperator
-          && tokens.get(i + 1).is(NUMBER)
-          && (isFirstToken || tokens.get(i - 1).is(OPERATOR))) {
-
-        var next = tokens.get(i + 1);
-
-        processed.add(
-            new Token(
-                curr.value() + next.value(),
-                next.pos() - 1,
-                NUMBER
-            )
-        );
-
-        i++;
+      if (i < N - 1 && curr.is(OPERATOR) && tokens.get(i + 1).is(NUMBER) && (i == 0 || tokens.get(i - 1).is(OPERATOR))) {
+        processed.add(merge(curr, tokens.get(++i)));
       } else {
         processed.add(curr);
       }
@@ -55,5 +35,18 @@ final class TokensMerger {
     }
 
     return processed;
+  }
+
+  /**
+   * This merge two tokens into one and set position of new token by
+   * subtracting <b>1</b> from second token position
+   *
+   * @param a first token (operator)
+   * @param b second token (number)
+   *
+   * @return instance of merged token
+   */
+  private Token merge(Token a, Token b) {
+    return new Token(a.value() + b.value(), b.pos() - 1, NUMBER);
   }
 }
