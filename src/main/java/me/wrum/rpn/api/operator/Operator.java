@@ -45,7 +45,7 @@ public interface Operator {
    * then other, otherwise {@code false}
    */
   default boolean higherThan(Operator op) {
-    return precedence() > op.precedence();
+    return precedence() >= op.precedence();
   }
 
   /**

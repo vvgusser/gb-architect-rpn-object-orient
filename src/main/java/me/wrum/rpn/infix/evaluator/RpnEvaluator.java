@@ -4,6 +4,7 @@ import me.wrum.rpn.api.evaluator.EvaluationResult;
 import me.wrum.rpn.api.evaluator.Evaluator;
 import me.wrum.rpn.api.lexer.Lexer;
 import me.wrum.rpn.api.lexer.Token;
+import me.wrum.rpn.api.operator.Operator;
 import me.wrum.rpn.infix.operator.support.OperatorsSupport;
 import me.wrum.rpn.infix.utils.Tokens;
 
@@ -71,6 +72,7 @@ public final class RpnEvaluator implements Evaluator {
           while (!stack.isEmpty() && !stack.getFirst().is(OPEN_BRACE)) {
             result.add(stack.pop());
           }
+
           stack.pop();
         }
         // If current token is operator, look stack and pop
@@ -80,12 +82,7 @@ public final class RpnEvaluator implements Evaluator {
           var value = token.value();
           var op = operators.getOperator(value);
 
-          while (!stack.isEmpty()) {
-            var tok = stack.getFirst();
-            var tokV = tok.value();
-
-            if (!tok.is(OPERATOR) || op.higherThan(operators.getOperator(tokV))) break;
-
+          while (!stack.isEmpty() && isHigherPrecedence(stack.getFirst(), op)) {
             result.add(stack.pop());
           }
 
@@ -99,10 +96,24 @@ public final class RpnEvaluator implements Evaluator {
     // When in stack remains operators, push it all
     // to end of result tokens list
     while (!stack.isEmpty()) {
-      result.add(stack.pollFirst());
+      result.add(stack.pop());
     }
 
     return result;
+  }
+
+  /**
+   * Check that given token is operator and operator precedence higher
+   * than operator from second argument
+   *
+   * @param a  token for check
+   * @param op operator for compare
+   *
+   * @return {@code true} when given token is operator with higher
+   * precedence than second operator otherwise {@code false}
+   */
+  private boolean isHigherPrecedence(Token a, Operator op) {
+    return a.is(OPERATOR) && operators.getOperator(a.value()).higherThan(op);
   }
 
   /**
