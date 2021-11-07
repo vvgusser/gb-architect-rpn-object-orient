@@ -84,7 +84,7 @@ public final class RpnEvaluator implements Evaluator {
             var tok = stack.getFirst();
             var tokV = tok.value();
 
-            if (!tok.is(OPERATOR) || operators.getOperator(tokV).precedence() < op.precedence()) break;
+            if (!tok.is(OPERATOR) || op.higherThan(operators.getOperator(tokV))) break;
 
             result.add(stack.pop());
           }

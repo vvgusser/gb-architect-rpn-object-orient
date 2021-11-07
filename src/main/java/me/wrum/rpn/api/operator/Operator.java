@@ -34,6 +34,21 @@ public interface Operator {
   int precedence();
 
   /**
+   * The method checks that the current operator has precedence over
+   * the one passed to the method.
+   * <p>
+   * The default implementation just compares priorities.
+   *
+   * @param op another operator
+   *
+   * @return {@code true} when current operator has higher precedence
+   * then other, otherwise {@code false}
+   */
+  default boolean higherThan(Operator op) {
+    return precedence() > op.precedence();
+  }
+
+  /**
    * Computation of the result by an operator, an array is accepted in order
    * to support many operand operators.
    * <p>
