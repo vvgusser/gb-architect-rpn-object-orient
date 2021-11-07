@@ -8,6 +8,10 @@ import static me.wrum.rpn.api.lexer.Type.OPEN_BRACE;
 import static me.wrum.rpn.api.lexer.Type.OPERATOR;
 
 /**
+ * Checks that there are no empty parentheses in the expression and
+ * that there is an operator before the opening parenthesis if it is
+ * not the beginning of a line
+ *
  * @author Vyacheslav Gusser proweber1@mail.ru
  */
 public final class OpenBracesRule implements TokensRule {
