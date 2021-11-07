@@ -27,11 +27,11 @@ public final class OpenBracesRule implements TokensRule {
       }
 
       if (i < tokens.size() - 1 && tokens.get(i + 1).is(CLOSE_BRACE)) {
-        ctx.invalid("Empty parentheses are not allowed", i);
+        ctx.invalid("Empty parentheses are not allowed", token.pos());
       }
 
       if (i > 0 && !tokens.get(i - 1).is(OPERATOR)) {
-        ctx.invalid("The parenthesis must be preceded by an operator, unless the expression begins with a parenthesis", i);
+        ctx.invalid("The parenthesis must be preceded by an operator, unless the expression begins with a parenthesis", token.pos());
       }
     } // end for-loop
   }
