@@ -42,6 +42,18 @@ public final class LexerFactory {
         new OperatorPositionRule(opSupp)
     );
 
-    return new InfixLexer(opSupp, compositeRule);
+    return shuntingYardDecorated(
+        new InfixLexer(opSupp, compositeRule)
+    );
+  }
+
+  /**
+   * Creates a lexer that automatically converts infix tokens to postfix tokens
+   *
+   * @return shunting yard decorated lexer
+   */
+  private static Lexer shuntingYardDecorated(Lexer lexer) {
+    return new ShuntingYardDecoratorLexer(lexer,
+        OperatorsSupportFactory.instantiate());
   }
 }

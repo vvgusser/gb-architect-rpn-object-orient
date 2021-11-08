@@ -4,6 +4,7 @@ import me.wrum.rpn.api.exception.EmptyExpressionException;
 import me.wrum.rpn.api.exception.TokenRuleException;
 import me.wrum.rpn.api.lexer.Lexer;
 import me.wrum.rpn.api.lexer.Token;
+import me.wrum.rpn.infix.operator.support.OperatorsSupportFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,7 +19,7 @@ import static me.wrum.rpn.api.lexer.Type.OPEN_BRACE;
 import static me.wrum.rpn.api.lexer.Type.OPERATOR;
 
 final class InfixLexerTest {
-  private final Lexer testable = LexerFactory.initLexer();
+  private final Lexer testable = new InfixLexer(OperatorsSupportFactory.instantiate());
 
   @Test
   void testSimpleCase() {
