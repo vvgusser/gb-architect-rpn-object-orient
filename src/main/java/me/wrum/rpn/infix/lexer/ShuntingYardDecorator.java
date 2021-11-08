@@ -19,11 +19,11 @@ import static me.wrum.rpn.api.lexer.Type.OPERATOR;
  *
  * @author Vyacheslav Gusser proweber1@mail.ru
  */
-public final class ShuntingYardDecoratorLexer implements Lexer {
+public final class ShuntingYardDecorator implements Lexer {
   private final Lexer wrapped;
   private final OperatorsSupport operators;
 
-  public ShuntingYardDecoratorLexer(Lexer wrapped, OperatorsSupport operators) {
+  public ShuntingYardDecorator(Lexer wrapped, OperatorsSupport operators) {
     Objects.requireNonNull(wrapped, "Wrapped lexer must not be null");
     Objects.requireNonNull(operators, "Operators support must not be null");
 

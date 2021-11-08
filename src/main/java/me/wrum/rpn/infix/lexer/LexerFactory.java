@@ -53,7 +53,7 @@ public final class LexerFactory {
    * @return shunting yard decorated lexer
    */
   private static Lexer shuntingYardDecorated(Lexer lexer) {
-    return new ShuntingYardDecoratorLexer(lexer,
+    return new ShuntingYardDecorator(lexer,
         OperatorsSupportFactory.instantiate());
   }
 }
