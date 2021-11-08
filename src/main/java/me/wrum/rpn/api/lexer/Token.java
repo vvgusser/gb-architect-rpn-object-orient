@@ -1,5 +1,7 @@
 package me.wrum.rpn.api.lexer;
 
+import java.util.stream.Stream;
+
 /**
  * Representing a token parsed by a lexer
  *
@@ -21,11 +23,7 @@ public record Token(String value, int pos, Type type) {
     if (types.length == 0) {
       throw new IllegalArgumentException("Types must not be blank");
     }
-    for (var type : types) {
-      if (type == this.type) {
-        return true;
-      }
-    }
-    return false;
+
+    return Stream.of(types).anyMatch(t -> t == this.type);
   }
 }
