@@ -1,11 +1,10 @@
 package me.wrum.rpn;
 
-import me.wrum.rpn.api.evaluator.Evaluator;
 import me.wrum.rpn.api.exception.ApplicationException;
 
 import java.io.Console;
-import java.text.DecimalFormat;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 
 /**
  * REPL (read-eval-print-loop) interface for evaluate infix expressions
@@ -13,41 +12,28 @@ import java.util.Objects;
  * @author Vyachesav Gusser proweber1@mail.ru
  */
 final class Repl {
-  private final Evaluator evaluator;
-  private final DecimalFormat formatter;
-
-  /**
-   * Primary constructor.
-   * <p>
-   * Create repl with required evaluator for evaluate expressions
-   *
-   * @param evaluator required evaluator
-   */
-  public Repl(Evaluator evaluator) {
-    Objects.requireNonNull(evaluator, "Evaluator must not be null");
-
-    this.evaluator = evaluator;
-    this.formatter = new DecimalFormat("#.##");
+  @FunctionalInterface
+  interface Printer {
+    void print(Object o);
   }
 
-  void run() {
+  void onNextExpression(BiConsumer<String, Printer> exprConsumer) {
+    Objects.requireNonNull(exprConsumer, "expression consumer must not be null");
+
     var console = getConsole();
 
     printHi();
 
     //noinspection InfiniteLoopStatement
-    for (; ; ) {
+    for (;;) {
       var expr = console.readLine(">>> ");
 
       try {
-        var result = evaluator.evaluate(expr);
-
-        console.printf("> %s%n", result.expr());
-        console.printf("> %s%n",
-            formatter.format(result.result())
+        exprConsumer.accept(
+            expr,
+            o -> console.printf("> %s%n", o)
         );
-      }
-      catch (ApplicationException e) {
+      } catch (ApplicationException e) {
         console.printf("%s%n", e.getMessage());
       }
     }
