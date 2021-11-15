@@ -2,6 +2,8 @@ package me.wrum.rpn.infix.operator;
 
 import me.wrum.rpn.api.operator.Operator;
 
+import java.util.Collection;
+
 /**
  * An abstract type of unary operators. Implements a basic computation
  * that invokes a unary or binary interface depending on the number
@@ -10,8 +12,8 @@ import me.wrum.rpn.api.operator.Operator;
  * @author Vyacheslav Gusser proweber1@mail.ru
  */
 abstract class AbstractUnaryOperator implements Operator {
-  private static void assertOperandsArr(double[] arr) {
-    if (arr.length > 2 || arr.length < 1) {
+  private static void assertOperandsArr(Collection<Double> arr) {
+    if (arr.size() > 2 || arr.size() < 1) {
       throw new IllegalArgumentException("operands count must be between 1 and 2");
     }
   }
@@ -22,12 +24,14 @@ abstract class AbstractUnaryOperator implements Operator {
   }
 
   @Override
-  public final double evaluate(double[] operands) {
+  public final double evaluate(Collection<Double> operands) {
     assertOperandsArr(operands);
 
-    return operands.length == 2
-        ? evaluate(operands[0], operands[1])
-        : evaluate(operands[0]);
+    var iter = operands.iterator();
+
+    return operands.size() == 2
+        ? evaluate(iter.next(), iter.next())
+        : evaluate(iter.next());
   }
 
   /**

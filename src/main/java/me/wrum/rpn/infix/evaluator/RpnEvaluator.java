@@ -7,11 +7,9 @@ import me.wrum.rpn.api.lexer.Token;
 import me.wrum.rpn.infix.operator.support.OperatorsSupport;
 import me.wrum.rpn.infix.utils.Tokens;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import static me.wrum.rpn.api.lexer.Type.OPERATOR;
 
 /**
  * Evaluator implementation based on calculating reverse polish notation.
@@ -50,30 +48,16 @@ public final class RpnEvaluator implements Evaluator {
    *
    * @return evaluation result
    */
-  private double calculateRpn(List<Token> tokens) {
-    var stack = new LinkedList<Double>();
+  private Double calculateRpn(List<Token> tokens) {
+    return new TokenReduceList<>(tokens)
+        .reduce(
+            t -> t.applyToValue(Double::parseDouble),
+            (ops, t) -> t.applyToValue(operators::getOperator).evaluate(reverse(ops))
+        );
+  }
 
-    for (var token : tokens) {
-      var value = token.value();
-
-      if (!token.is(OPERATOR)) {
-        stack.push(Double.parseDouble(value));
-
-        continue;
-      }
-
-      var op1 = stack.pop();
-
-      var operands = stack.isEmpty()
-          ? new double[]{ op1 }
-          : new double[]{ stack.pop(), op1 };
-
-      stack.push(
-          operators.getOperator(value)
-              .evaluate(operands)
-      );
-    }
-
-    return stack.getFirst();
+  private List<Double> reverse(List<Double> source) {
+    Collections.reverse(source);
+    return source;
   }
 }

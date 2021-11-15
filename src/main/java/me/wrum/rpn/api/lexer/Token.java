@@ -1,5 +1,7 @@
 package me.wrum.rpn.api.lexer;
 
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -25,5 +27,20 @@ public record Token(String value, int pos, Type type) {
     }
 
     return Stream.of(types).anyMatch(t -> t == this.type);
+  }
+
+  /**
+   * Apply function that accept token value and return some another
+   * generic value
+   *
+   * @param func function mapper of current token value
+   * @param <T>  type of mapped value
+   *
+   * @return instance of mapped value
+   */
+  public <T> T applyToValue(Function<String, T> func) {
+    Objects.requireNonNull(func, "function must not be null");
+
+    return func.apply(value);
   }
 }

@@ -2,6 +2,8 @@ package me.wrum.rpn.infix.operator;
 
 import me.wrum.rpn.api.operator.Operator;
 
+import java.util.Collection;
+
 /**
  * An abstract operator type that implements a basic computation
  * function and delegates it to a simpler interface.
@@ -18,11 +20,14 @@ abstract class AbstractOperator implements Operator {
   }
 
   @Override
-  public final double evaluate(double[] operands) {
-    if (operands.length != 2) {
+  public double evaluate(Collection<Double> operands) {
+    if (operands.size() != 2) {
       throw new IllegalArgumentException("Required two operands for operation '" + symbol() + "'");
     }
-    return evaluate(operands[0], operands[1]);
+
+    var iter = operands.iterator();
+
+    return evaluate(iter.next(), iter.next());
   }
 
   /**

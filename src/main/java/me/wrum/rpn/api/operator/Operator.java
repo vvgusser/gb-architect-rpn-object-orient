@@ -1,5 +1,7 @@
 package me.wrum.rpn.api.operator;
 
+import java.util.Collection;
+
 /**
  * Operator that can perform calculations on operands
  *
@@ -58,5 +60,5 @@ public interface Operator {
    *
    * @return Operator calculation result
    */
-  double evaluate(double[] operands);
+  double evaluate(Collection<Double> operands);
 }
